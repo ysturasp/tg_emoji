@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Animated Emojis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .notification {
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .notification.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            100: '#1a1a1a',
+                            200: '#2d2d2d',
+                            300: '#404040',
+                            400: '#525252',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-dark-100 min-h-screen p-8 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto relative">
+        <!-- Переключатель темы -->
+        <div class="absolute top-0 right-0 p-4">
+            <button id="theme-toggle" class="p-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition-all duration-200">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+
+        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-white">Telegram Animated Emojis</h1>
+
+        <!-- Поле поиска -->
+        <div class="mb-8 max-w-md mx-auto">
+            <div class="relative">
+                <input type="text" id="search-input" 
+                    class="w-full px-4 py-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white border border-gray-300 dark:border-dark-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                    placeholder="Поиск эмодзи...">
+                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+        </div>
+        
+        <div class="mb-8 flex flex-wrap gap-4 justify-center" id="category-filters">
+            <!-- Фильтры категорий будут добавлены через JavaScript -->
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="emoji-container">
+            <!-- Эмодзи будут добавлены через JavaScript -->
+        </div>
+
+        <!-- Уведомление о копировании -->
+        <div id="copy-notification" class="fixed bottom-8 right-8 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-[200%] transition-transform duration-300">
+            Скопировано!
+        </div>
+
+        <!-- Временный элемент для копирования -->
+        <textarea id="copy-textarea" style="position: fixed; top: -9999px; left: -9999px;"></textarea>
+    </div>
+
+    <script>
+        // Инициализация темы
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.className = theme;
+
+        // Обработчик переключения темы
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const html = document.documentElement;
+            const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
+            html.className = newTheme;
+            localStorage.setItem('theme', newTheme);
+        });
+
+        const categories = [
+            'Activity',
+            'Animals and Nature',
+            'Flags',
+            'Food and Drink',
+            'Objects',
+            'People',
+            'Smileys',
+            'Symbols',
+            'Travel and Places'
+        ];
+
+        const categoryFilters = document.getElementById('category-filters');
+        const emojiContainer = document.getElementById('emoji-container');
+        const copyNotification = document.getElementById('copy-notification');
+        const copyTextarea = document.getElementById('copy-textarea');
+        const searchInput = document.getElementById('search-input');
+        let currentCategory = null;
+        let allEmojis = [];
+
+        // Функция для форматирования имени файла
+        function formatEmojiName(name) {
+            return decodeURIComponent(name)
+                .replace(/%20/g, ' ')
+                .replace(/([A-Z])/g, ' $1')
+                .trim();
+        }
+
+        // Обновленная функция показа уведомления
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-5 right-5 left-5 sm:right-10 sm:left-auto bg-green-500 text-white py-2 px-4 rounded-lg z-50 notification';
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            notification.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+            });
+
+            let touchStartX = 0;
+            let currentX = 0;
+            let moveX = 0;
+            let isSwiping = false;
+
+            notification.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                isSwiping = true;
+                notification.style.transition = '';
+            });
+
+            notification.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+
+                currentX = e.changedTouches[0].screenX;
+                moveX = currentX - touchStartX;
+
+                notification.style.transform = `translateX(${moveX}px)`;
+            });
+
+            notification.addEventListener('touchend', () => {
+                if (!isSwiping) return;
+
+                isSwiping = false;
+                if (Math.abs(moveX) > 100) {
+                    const direction = moveX < 0 ? '-110%' : '110%';
+                    notification.style.transition = 'transform 0.5s ease';
+                    notification.style.transform = `translateX(${direction})`;
+
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 500);
+                } else {
+                    notification.style.transition = 'transform 0.3s ease';
+                    notification.style.transform = 'translateX(0)';
+                }
+            });
+
+            notification.addEventListener('click', () => {
+                notification.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            });
+
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                notification.classList.add('hide');
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 5000);
+        }
+
+        // Функция для копирования изображения
+        async function copyImage(imgElement) {
+            try {
+                const absoluteUrl = new URL(imgElement.src, window.location.href).href;
+                const imgTag = `<img src="${absoluteUrl}" alt="${imgElement.alt}" />`;
+                
+                copyTextarea.value = imgTag;
+                copyTextarea.select();
+                const success = document.execCommand('copy');
+                
+                if (success) {
+                    showNotification('HTML-тег скопирован!');
+                } else {
+                    await navigator.clipboard.writeText(imgTag);
+                    showNotification('HTML-тег скопирован!');
+                }
+            } catch (err) {
+                console.error('Error copying image tag:', err);
+                showNotification('Ошибка при копировании');
+            }
+        }
+
+        // Функция создания карточки эмодзи
+        function createEmojiCard(emojiName, category) {
+            const card = document.createElement('div');
+            card.className = 'bg-white dark:bg-dark-200 rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center relative group';
+            
+            const img = document.createElement('img');
+            img.src = `${category}/${emojiName}.webp`;
+            img.alt = formatEmojiName(emojiName);
+            img.className = 'w-16 h-16 object-contain';
+            img.crossOrigin = 'anonymous';
+            
+            const name = document.createElement('p');
+            name.className = 'mt-2 text-sm text-gray-600 dark:text-gray-300 text-center';
+            name.textContent = formatEmojiName(emojiName);
+
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.className = 'absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300';
+
+            const copyButton = document.createElement('button');
+            copyButton.className = 'bg-blue-500 text-white p-1 rounded hover:bg-blue-600 transition-colors';
+            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+            copyButton.onclick = (e) => {
+                e.stopPropagation();
+                copyImage(img);
+            };
+
+            const downloadButton = document.createElement('button');
+            downloadButton.className = 'bg-green-500 text-white p-1 rounded hover:bg-green-600 transition-colors';
+            downloadButton.innerHTML = '<i class="fas fa-download"></i>';
+            downloadButton.onclick = (e) => {
+                e.stopPropagation();
+                const link = document.createElement('a');
+                link.href = img.src;
+                link.download = `${formatEmojiName(emojiName)}.webp`;
+                link.click();
+            };
+
+            buttonsContainer.appendChild(copyButton);
+            buttonsContainer.appendChild(downloadButton);
+            
+            card.appendChild(img);
+            card.appendChild(name);
+            card.appendChild(buttonsContainer);
+            return card;
+        }
+
+        // Функция фильтрации эмодзи
+        function filterEmojis(searchTerm) {
+            const normalizedSearch = searchTerm.toLowerCase();
+            const filteredEmojis = allEmojis.filter(emoji => 
+                formatEmojiName(emoji.name).toLowerCase().includes(normalizedSearch)
+            );
+
+            emojiContainer.innerHTML = '';
+            if (filteredEmojis.length === 0) {
+                emojiContainer.innerHTML = '<p class="text-gray-500 dark:text-gray-400 text-center col-span-full">Ничего не найдено</p>';
+                return;
+            }
+
+            filteredEmojis.forEach(emoji => {
+                emojiContainer.appendChild(createEmojiCard(emoji.name, emoji.category));
+            });
+        }
+
+        // Функция загрузки всех категорий
+        async function loadAllCategories() {
+            const loadingMessage = document.createElement('p');
+            loadingMessage.className = 'text-gray-500 dark:text-gray-400 text-center col-span-full';
+            loadingMessage.textContent = 'Загрузка всех эмодзи...';
+            emojiContainer.innerHTML = '';
+            emojiContainer.appendChild(loadingMessage);
+
+            try {
+                for (const category of categories) {
+                    const response = await fetch(`${category}`);
+                    if (!response.ok) continue;
+                    
+                    const files = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(files, 'text/html');
+                    const links = Array.from(doc.querySelectorAll('a'))
+                        .map(a => a.href)
+                        .filter(href => href.endsWith('.webp'))
+                        .map(href => href.split('/').pop().replace('.webp', ''));
+
+                    links.forEach(name => {
+                        if (!allEmojis.some(e => e.name === name && e.category === category)) {
+                            allEmojis.push({ name, category });
+                        }
+                    });
+                }
+                return true;
+            } catch (error) {
+                console.error('Error loading all categories:', error);
+                return false;
+            }
+        }
+
+        let isAllCategoriesLoaded = false;
+
+        // Обновленный обработчик поиска
+        searchInput.addEventListener('input', async (e) => {
+            const searchTerm = e.target.value.trim();
+            
+            if (searchTerm === '') {
+                // Сбрасываем результаты поиска и возвращаем текущую категорию
+                if (currentCategory) {
+                    // Обновляем стили кнопок категорий
+                    document.querySelectorAll('#category-filters button').forEach(btn => {
+                        if (btn.textContent === currentCategory) {
+                            btn.classList.remove('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
+                            btn.classList.add('bg-blue-500', 'text-white');
+                        } else {
+                            btn.classList.remove('bg-blue-500', 'text-white');
+                            btn.classList.add('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
+                        }
+                    });
+                    
+                    // Очищаем контейнер и показываем эмодзи текущей категории
+                    emojiContainer.innerHTML = '';
+                    const categoryEmojis = allEmojis.filter(emoji => emoji.category === currentCategory);
+                    categoryEmojis.forEach(emoji => {
+                        emojiContainer.appendChild(createEmojiCard(emoji.name, emoji.category));
+                    });
+                } else {
+                    // Если категория не выбрана, загружаем первую категорию
+                    loadEmojisForCategory(categories[0]);
+                }
+                return;
+            }
+
+            // Если это первый поиск, загружаем все категории
+            if (!isAllCategoriesLoaded) {
+                isAllCategoriesLoaded = await loadAllCategories();
+                if (!isAllCategoriesLoaded) {
+                    emojiContainer.innerHTML = '<p class="text-red-500 dark:text-red-400 text-center col-span-full">Ошибка загрузки эмодзи</p>';
+                    return;
+                }
+            }
+
+            // Сбрасываем выделение категории при поиске
+            document.querySelectorAll('#category-filters button').forEach(btn => {
+                btn.classList.remove('bg-blue-500', 'text-white');
+                btn.classList.add('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
+            });
+
+            filterEmojis(searchTerm);
+        });
+
+        // Создаем фильтры категорий
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = 'px-4 py-2 rounded-full bg-white dark:bg-dark-200 shadow-md hover:shadow-lg transition-all duration-300 text-gray-700 dark:text-white hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600';
+            button.textContent = category;
+            button.onclick = () => {
+                searchInput.value = '';
+                loadEmojisForCategory(category);
+            };
+            categoryFilters.appendChild(button);
+        });
+
+        // Функция для загрузки эмодзи определенной категории
+        async function loadEmojisForCategory(category) {
+            if (currentCategory === category && searchInput.value.trim() === '') return;
+            currentCategory = category;
+            
+            // Обновляем стили кнопок
+            document.querySelectorAll('#category-filters button').forEach(btn => {
+                if (btn.textContent === category) {
+                    btn.classList.remove('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
+                    btn.classList.add('bg-blue-500', 'text-white');
+                } else {
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
+                }
+            });
+
+            try {
+                emojiContainer.innerHTML = '';
+                
+                const response = await fetch(`${category}`);
+                if (!response.ok) throw new Error('Failed to load category');
+                
+                const files = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(files, 'text/html');
+                const links = Array.from(doc.querySelectorAll('a'))
+                    .map(a => a.href)
+                    .filter(href => href.endsWith('.webp'))
+                    .map(href => href.split('/').pop().replace('.webp', ''));
+
+                // Добавляем эмодзи в общий список
+                links.forEach(name => {
+                    if (!allEmojis.some(e => e.name === name && e.category === category)) {
+                        allEmojis.push({ name, category });
+                    }
+                });
+
+                links.forEach(emojiName => {
+                    emojiContainer.appendChild(createEmojiCard(emojiName, category));
+                });
+            } catch (error) {
+                console.error('Error loading category:', error);
+                emojiContainer.innerHTML = '<p class="text-red-500 dark:text-red-400 text-center col-span-full">Ошибка загрузки категории</p>';
+            }
+        }
+
+        // Загружаем первую категорию по умолчанию
+        loadEmojisForCategory(categories[0]);
+    </script>
+</body>
+</html> 
