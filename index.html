@@ -23,6 +23,7 @@
     </style>
     <script src="translations.js"></script>
     <script src="emojiMap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -68,6 +69,13 @@
                 const key = element.getAttribute('data-i18n-title');
                 if (key) {
                     element.title = t(key);
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-text]').forEach(element => {
+                const key = element.getAttribute('data-i18n-text');
+                if (key) {
+                    element.textContent = t(key);
                 }
             });
 
@@ -249,32 +257,38 @@
 
         <h1 class="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-white">Telegram Animated Emojis</h1>
 
-        <div class="mb-8 max-w-md mx-auto">
-            <div class="relative flex items-center gap-2">
-                <div class="flex-1 relative">
-                <input type="text" id="search-input" 
-                    class="w-full px-4 py-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white border border-gray-300 dark:border-dark-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-                    placeholder="Поиск эмодзи...">
-                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
-                    <i class="fas fa-search"></i>
-                </span>
+        <div class="mb-8 max-w-3xl mx-auto">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <div class="flex-1 relative order-1">
+                    <input type="text" id="search-input" 
+                        class="w-full px-4 py-3 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white border border-gray-300 dark:border-dark-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-lg"
+                        placeholder="Поиск эмодзи...">
+                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                        <i class="fas fa-search text-lg"></i>
+                    </span>
                 </div>
-                <div class="relative">
-                    <button id="lang-toggle" class="px-3 py-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center min-w-[48px] gap-1">
-                        <span class="font-semibold">RU</span>
-                        <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                <div class="flex items-center gap-2 order-2 sm:order-2">
+                    <button id="download-all" class="px-4 py-3 rounded-lg bg-green-500 hover:bg-green-600 text-white shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2 flex-shrink-0">
+                        <i class="fas fa-download"></i>
+                        <span data-i18n-text="downloadAll"></span>
                     </button>
-                    <div id="lang-menu" class="absolute right-0 mt-2 py-2 w-32 bg-white dark:bg-dark-200 rounded-lg shadow-xl opacity-0 invisible transform scale-95 translate-y-2 transition-all duration-200 z-50">
-                        <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="ru">Русский</button>
-                        <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="en">English</button>
-                        <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="de">Deutsch</button>
-                        <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="fr">Français</button>
+                    <div class="relative">
+                        <button id="lang-toggle" class="px-3 py-3 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center min-w-[48px] gap-1">
+                            <span class="font-semibold">RU</span>
+                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                        </button>
+                        <div id="lang-menu" class="absolute right-0 mt-2 py-2 w-32 bg-white dark:bg-dark-200 rounded-lg shadow-xl opacity-0 invisible transform scale-95 translate-y-2 transition-all duration-200 z-50">
+                            <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="ru">Русский</button>
+                            <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="en">English</button>
+                            <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="de">Deutsch</button>
+                            <button class="w-full px-4 py-2 text-left text-gray-800 dark:text-white hover:bg-blue-500 hover:text-white transition-colors" data-lang="fr">Français</button>
+                        </div>
                     </div>
+                    <button id="theme-toggle" class="p-3 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition-all duration-200 flex-shrink-0">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
                 </div>
-                <button id="theme-toggle" class="p-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition-all duration-200 flex-shrink-0">
-                    <i class="fas fa-moon dark:hidden"></i>
-                    <i class="fas fa-sun hidden dark:block"></i>
-                </button>
             </div>
         </div>
         
@@ -290,6 +304,44 @@
 
         <textarea id="copy-textarea" style="position: fixed; top: -9999px; left: -9999px;"></textarea>
     </div>
+
+    <footer class="mt-16 py-8 bg-white dark:bg-dark-200 shadow-lg border-t border-gray-200 dark:border-dark-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">О проекте</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Коллекция анимированных эмодзи Telegram в высоком качестве. Используйте их для ваших проектов и общения
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Полезные ссылки</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://t.me/ysturasp" class="text-blue-500 hover:text-blue-600 transition-colors" target="_blank" rel="noopener">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/ysturasp" class="text-blue-500 hover:text-blue-600 transition-colors" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Статистика</h3>
+                    <div class="space-y-2 text-gray-600 dark:text-gray-300">
+                        <p><i class="fas fa-images"></i> Всего эмодзи: <span id="total-emoji-count">0</span></p>
+                        <p><i class="fas fa-folder"></i> Категорий: <span id="total-categories-count">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-dark-300 text-center text-gray-500 dark:text-gray-400">
+                <p>© <script>document.write(new Date().getFullYear())</script> Telegram Animated Emojis</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         function initTheme() {
@@ -502,11 +554,23 @@
                         }
                     });
                 });
+                updateFooterStats();
                 return true;
             } catch (error) {
                 console.error('Error loading all categories:', error);
                 return false;
             }
+        }
+
+        function updateFooterStats() {
+            const totalEmojiCount = document.getElementById('total-emoji-count');
+            const totalCategoriesCount = document.getElementById('total-categories-count');
+            
+            const totalEmojis = Object.values(emojiMap).reduce((acc, curr) => acc + curr.length, 0);
+            const totalCategories = Object.keys(emojiMap).length;
+            
+            totalEmojiCount.textContent = totalEmojis;
+            totalCategoriesCount.textContent = totalCategories;
         }
 
         let isAllCategoriesLoaded = false;
@@ -618,6 +682,7 @@
         }
 
         loadEmojisForCategory(categories[0]);
+        updateFooterStats();
 
         const langToggle = document.getElementById('lang-toggle');
         const langMenu = document.getElementById('lang-menu');
@@ -662,6 +727,82 @@
         const currentLang = localStorage.getItem('lang') || 'ru';
         langToggle.querySelector('span').textContent = currentLang.toUpperCase();
         updatePageTexts();
+
+        async function downloadAllEmojis() {
+            const downloadButton = document.getElementById('download-all');
+            downloadButton.disabled = true;
+            downloadButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${t('preparing')}`;
+
+            try {
+                const zip = new JSZip();
+                let processedFiles = 0;
+                const totalFiles = Object.entries(emojiMap).reduce((acc, [_, emojis]) => acc + emojis.length, 0);
+
+                const langFolders = {};
+                Object.keys(translations).forEach(lang => {
+                    langFolders[lang] = zip.folder(lang);
+                });
+
+                for (const [category, emojis] of Object.entries(emojiMap)) {
+                    const categoryFolders = {};
+                    Object.keys(translations).forEach(lang => {
+                        const translatedCategory = translations[lang].categories[category] || category;
+                        categoryFolders[lang] = langFolders[lang].folder(translatedCategory);
+                    });
+                    
+                    for (const emojiName of emojis) {
+                        try {
+                            const formattedName = formatEmojiFileName(emojiName);
+                            const response = await fetch(`${category}/${formattedName}.webp`);
+                            const blob = await response.blob();
+                            
+                            Object.keys(translations).forEach(lang => {
+                                const translatedName = translations[lang].emojis[emojiName] || emojiName;
+                                const formattedTranslatedName = formatEmojiFileName(translatedName);
+                                categoryFolders[lang].file(`${formattedTranslatedName}.webp`, blob);
+                            });
+                            
+                            processedFiles++;
+                            const progress = Math.round((processedFiles / totalFiles) * 100);
+                            downloadButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${progress}%`;
+                        } catch (error) {
+                            console.error(`Ошибка при добавлении файла ${emojiName}:`, error);
+                        }
+                    }
+                }
+
+                downloadButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${t('creatingArchive')}`;
+                const content = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(content);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'telegram-animated-emojis.zip';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                downloadButton.disabled = false;
+                downloadButton.innerHTML = `<i class="fas fa-download"></i> <span>${t('downloadAll')}</span>`;
+                showNotification('downloadComplete');
+            } catch (error) {
+                console.error('Ошибка при создании архива:', error);
+                downloadButton.disabled = false;
+                downloadButton.innerHTML = `<i class="fas fa-download"></i> <span>${t('downloadAll')}</span>`;
+                showNotification('downloadError');
+            }
+        }
+
+        document.getElementById('download-all').addEventListener('click', downloadAllEmojis);
+
+        const newTranslations = {
+            'downloadComplete': 'Скачивание завершено',
+            'downloadError': 'Ошибка при скачивании',
+        };
+
+        Object.keys(translations).forEach(lang => {
+            translations[lang] = { ...translations[lang], ...newTranslations };
+        });
     </script>
 </body>
 </html> 
