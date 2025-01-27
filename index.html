@@ -21,6 +21,8 @@
             opacity: 0;
         }
     </style>
+    <script src="translations.js"></script>
+    <script src="emojiMap.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -38,822 +40,6 @@
             }
         }
 
-        // Добавляем словарь переводов
-        const translations = {
-            ru: {
-                title: 'Анимированные Эмодзи Telegram',
-                search: 'Поиск эмодзи...',
-                loaded: 'Загружено',
-                timeLeft: 'Осталось',
-                speed: 'Скорость',
-                loadingComplete: 'Загрузка завершена',
-                copySuccess: 'HTML-тег скопирован!',
-                copyError: 'Ошибка при копировании',
-                loadError: 'Ошибка загрузки',
-                loadCategoryError: 'Ошибка загрузки категории',
-                noResults: 'Ничего не найдено',
-                perSecond: 'эмодзи/сек',
-                perMinute: 'эмодзи/мин',
-                seconds: 'сек',
-                minutes: 'мин',
-                copy: 'Копировать',
-                download: 'Скачать',
-                categories: {
-                    'Activity': 'Активности',
-                    'Animals and Nature': 'Животные и природа',
-                    'Flags': 'Флаги',
-                    'Food and Drink': 'Еда и напитки',
-                    'Objects': 'Предметы',
-                    'People': 'Люди',
-                    'Smileys': 'Смайлики',
-                    'Symbols': 'Символы',
-                    'Travel and Places': 'Путешествия и места'
-                },
-                emojis: {
-                    // Activity
-                    '1st Place Medal': 'Медаль за 1-е место',
-                    '2nd Place Medal': 'Медаль за 2-е место',
-                    '3rd Place Medal': 'Медаль за 3-е место',
-                    'Admission Tickets': 'Входные билеты',
-                    'Artist Palette': 'Палитра художника',
-                    'Balloon': 'Воздушный шар',
-                    'Basketball': 'Баскетбол',
-                    'Christmas Tree': 'Новогодняя ёлка',
-                    'Confetti Ball': 'Конфетти',
-                    'Crystal Ball': 'Хрустальный шар',
-                    'Firecracker': 'Петарда',
-                    'Fireworks': 'Фейерверк',
-                    'Jack O Lantern': 'Тыква-фонарь',
-                    'Magic Wand': 'Волшебная палочка',
-                    'Military Medal': 'Военная медаль',
-                    'Mirror Ball': 'Диско-шар',
-                    'Party Popper': 'Хлопушка',
-                    'Performing Arts': 'Исполнительское искусство',
-                    'Soccer Ball': 'Футбольный мяч',
-                    'Sparkler': 'Бенгальский огонь',
-                    'Sparkles': 'Искры',
-                    'Sports Medal': 'Спортивная медаль',
-                    'Ticket': 'Билет',
-                    'Trophy': 'Кубок',
-                    'Video Game': 'Видеоигра',
-
-                    // Food and Drink
-                    'Baby Bottle': 'Детская бутылочка',
-                    'Banana': 'Банан',
-                    'Bento Box': 'Коробка бенто',
-                    'Beverage Box': 'Коробка с напитком',
-                    'Birthday Cake': 'Праздничный торт',
-                    'Bottle With Popping Cork': 'Бутылка с пробкой',
-                    'Bubble Tea': 'Бабл-чай',
-                    'Canned Food': 'Консервы',
-                    'Chocolate Bar': 'Плитка шоколада',
-                    'Clinking Glasses': 'Чокающиеся бокалы',
-                    'Cocktail Glass': 'Коктейльный бокал',
-                    'Cookie': 'Печенье',
-                    'Cooking': 'Готовка',
-                    'Cup With Straw': 'Стакан с трубочкой',
-                    'Cupcake': 'Кекс',
-                    'Custard': 'Заварной крем',
-                    'Dango': 'Данго',
-                    'Doughnut': 'Пончик',
-                    'Fish Cake With Swirl': 'Рыбный пирог',
-                    'Fork And Knife With Plate': 'Вилка и нож с тарелкой',
-                    'French Fries': 'Картофель фри',
-                    'Glass Of Milk': 'Стакан молока',
-                    'Hamburger': 'Гамбургер',
-                    'Hot Beverage': 'Горячий напиток',
-                    'Hot Dog': 'Хот-дог',
-                    'Lollipop': 'Леденец',
-                    'Mate': 'Мате',
-                    'Meat On Bone': 'Мясо на кости',
-                    'Oden': 'Оден',
-                    'Pancakes': 'Блины',
-                    'Pie': 'Пирог',
-                    'Pizza': 'Пицца',
-                    'Popcorn': 'Попкорн',
-                    'Poultry Leg': 'Куриная ножка',
-                    'Pouring Liquid': 'Наливающаяся жидкость',
-                    'Pretzel': 'Крендель',
-                    'Rice Ball': 'Рисовый шарик',
-                    'Rice Cracker': 'Рисовое печенье',
-                    'Sandwich': 'Сэндвич',
-                    'Shortcake': 'Бисквит',
-                    'Soft Ice Cream': 'Мягкое мороженое',
-                    'Strawberry': 'Клубника',
-                    'Stuffed Flatbread': 'Фаршированная лепешка',
-                    'Sushi': 'Суши',
-                    'Taco': 'Тако',
-                    'Tropical Drink': 'Тропический напиток',
-                    'Tumbler Glass': 'Стакан',
-                    'Wine Glass': 'Бокал вина',
-
-                    // Symbols
-                    'Anger Symbol': 'Символ гнева',
-                    'Aquarius': 'Водолей',
-                    'Aries': 'Овен',
-                    'Baby Symbol': 'Символ ребенка',
-                    'Baggage Claim': 'Получение багажа',
-                    'Beating Heart': 'Бьющееся сердце',
-                    'Black Heart': 'Черное сердце',
-                    'Blue Heart': 'Синее сердце',
-                    'Broken Heart': 'Разбитое сердце',
-                    'Brown Heart': 'Коричневое сердце',
-                    'Cancer': 'Рак',
-                    'Capricorn': 'Козерог',
-                    'Check Box With Check': 'Отмеченный чекбокс',
-                    'Check Mark Button': 'Кнопка с галочкой',
-                    'Check Mark': 'Галочка',
-                    'Collision': 'Столкновение',
-                    'Cool Button': 'Кнопка "Круто"',
-                    'Cross Mark': 'Крестик',
-                    'Currency Exchange': 'Обмен валют',
-                    'Customs': 'Таможня',
-                    'Dizzy': 'Головокружение',
-                    'Double Exclamation Mark': 'Двойной восклицательный знак',
-                    'Exclamation Mark': 'Восклицательный знак',
-                    'Exclamation Question Mark': 'Восклицательный и вопросительный знаки',
-                    'Free Button': 'Кнопка "Бесплатно"',
-                    'Gemini': 'Близнецы',
-                    'Green Heart': 'Зеленое сердце',
-                    'Growing Heart': 'Растущее сердце',
-                    'Heart Decoration': 'Украшение-сердце',
-                    'Heart Exclamation': 'Сердце с восклицательным знаком',
-                    'Heart On Fire': 'Горящее сердце',
-                    'Heart With Arrow': 'Сердце со стрелой',
-                    'Heart With Ribbon': 'Сердце с лентой',
-                    'Hundred Points': 'Сто баллов',
-                    'Kiss Mark': 'След от поцелуя',
-                    'Left Luggage': 'Камера хранения',
-                    'Leo': 'Лев',
-                    'Libra': 'Весы',
-                    'Love Letter': 'Любовное письмо',
-                    'Mending Heart': 'Исцеляющееся сердце',
-                    'Mens Room': 'Мужской туалет',
-                    'New Button': 'Кнопка "Новое"',
-                    'No One Under Eighteen': 'Только с 18 лет',
-                    'Ok Button': 'Кнопка "ОК"',
-                    'Ophiuchus': 'Змееносец',
-                    'Orange Heart': 'Оранжевое сердце',
-                    'Passport Control': 'Паспортный контроль',
-                    'Pisces': 'Рыбы',
-                    'Purple Heart': 'Фиолетовое сердце',
-                    'Question Mark': 'Вопросительный знак',
-                    'Red Heart': 'Красное сердце',
-                    'Revolving Hearts': 'Вращающиеся сердца',
-                    'Right Anger Bubble': 'Пузырь гнева справа',
-                    'Sagittarius': 'Стрелец',
-                    'Scorpio': 'Скорпион',
-                    'Sparkling Heart': 'Сверкающее сердце',
-                    'Speech Balloon': 'Речевой пузырь',
-                    'Taurus': 'Телец',
-                    'Thought Balloon': 'Пузырь мысли',
-                    'Top Arrow': 'Стрелка вверх',
-                    'Two Hearts': 'Два сердца',
-                    'Up Button': 'Кнопка вверх',
-                    'Virgo': 'Дева',
-                    'White Exclamation Mark': 'Белый восклицательный знак',
-                    'White Heart': 'Белое сердце',
-                    'White Question Mark': 'Белый вопросительный знак',
-                    'Womens Room': 'Женский туалет',
-                    'Yellow Heart': 'Желтое сердце',
-                    'Zzz': 'Zzz',
-
-                    // Travel and Places
-                    'Airplane': 'Самолет',
-                    'Ambulance': 'Скорая помощь',
-                    'Automobile': 'Автомобиль',
-                    'Beach With Umbrella': 'Пляж с зонтиком',
-                    'Camping': 'Кемпинг',
-                    'Classical Building': 'Классическое здание',
-                    'Compass': 'Компас',
-                    'Desert Island': 'Необитаемый остров',
-                    'Hot Springs': 'Горячие источники',
-                    'House': 'Дом',
-                    'Locomotive': 'Локомотив',
-                    'Moai': 'Моаи',
-                    'Motor Boat': 'Моторная лодка',
-                    'Police Car': 'Полицейская машина',
-                    'Rocket': 'Ракета',
-                    'Roller Coaster': 'Американские горки',
-                    'Taxi': 'Такси',
-
-                    // Animals and Nature
-                    'Ant': 'Муравей',
-                    'Baby Chick': 'Цыпленок',
-                    'Bat': 'Летучая мышь',
-                    'Bear': 'Медведь',
-                    'Beetle': 'Жук',
-                    'Bird': 'Птица',
-                    'Bison': 'Бизон',
-                    'Black Cat': 'Черный кот',
-                    'Blossom': 'Цветение',
-                    'Bouquet': 'Букет',
-                    'Bug': 'Насекомое',
-                    'Butterfly': 'Бабочка',
-                    'Cactus': 'Кактус',
-                    'Cat Face': 'Морда кота',
-                    'Cat': 'Кот',
-                    'Cherry Blossom': 'Цветок сакуры',
-                    'Chicken': 'Курица',
-                    'Cloud With Lightning And Rain': 'Облако с молнией и дождем',
-                    'Cloud With Lightning': 'Облако с молнией',
-                    'Cloud With Rain': 'Облако с дождем',
-                    'Cloud With Snow': 'Облако со снегом',
-                    'Cloud': 'Облако',
-                    'Cockroach': 'Таракан',
-                    'Cow': 'Корова',
-                    'Cricket': 'Сверчок',
-                    'Deciduous Tree': 'Лиственное дерево',
-                    'Deer': 'Олень',
-                    'Dog Face': 'Морда собаки',
-                    'Dove': 'Голубь',
-                    'Duck': 'Утка',
-                    'Evergreen Tree': 'Вечнозеленое дерево',
-                    'Fire': 'Огонь',
-                    'First Quarter Moon Face': 'Лицо первой четверти луны',
-                    'First Quarter Moon': 'Первая четверть луны',
-                    'Fish': 'Рыба',
-                    'Flamingo': 'Фламинго',
-                    'Four Leaf Clover': 'Четырехлистный клевер',
-                    'Fox': 'Лиса',
-                    'Frog': 'Лягушка',
-                    'Front Facing Baby Chick': 'Цыпленок анфас',
-                    'Full Moon Face': 'Лицо полной луны',
-                    'Full Moon': 'Полная луна',
-                    'Giraffe': 'Жираф',
-                    'Glowing Star': 'Светящаяся звезда',
-                    'Gorilla': 'Горилла',
-                    'Hamster': 'Хомяк',
-                    'Hatching Chick': 'Вылупляющийся цыпленок',
-                    'Hedgehog': 'Ёж',
-                    'Herb': 'Трава',
-                    'Hibiscus': 'Гибискус',
-                    'High Voltage': 'Высокое напряжение',
-                    'Honeybee': 'Пчела',
-                    'Horse Face': 'Морда лошади',
-                    'Horse': 'Лошадь',
-                    'Kangaroo': 'Кенгуру',
-                    'Koala': 'Коала',
-                    'Lady Beetle': 'Божья коровка',
-                    'Last Quarter Moon Face': 'Лицо последней четверти луны',
-                    'Last Quarter Moon': 'Последняя четверть луны',
-                    'Leopard': 'Леопард',
-                    'Lion': 'Лев',
-                    'Llama': 'Лама',
-                    'Lobster': 'Омар',
-                    'Microbe': 'Микроб',
-                    'Monkey Face': 'Морда обезьяны',
-                    'Mosquito': 'Комар',
-                    'Mouse Face': 'Морда мыши',
-                    'New Moon Face': 'Лицо новой луны',
-                    'New Moon': 'Новая луна',
-                    'Octopus': 'Осьминог',
-                    'Owl': 'Сова',
-                    'Ox': 'Бык',
-                    'Palm Tree': 'Пальма',
-                    'Panda': 'Панда',
-                    'Parrot': 'Попугай',
-                    'Paw Prints': 'Следы лап',
-                    'Penguin': 'Пингвин',
-                    'Pig Face': 'Морда свиньи',
-                    'Pig Nose': 'Пятачок',
-                    'Polar Bear': 'Белый медведь',
-                    'Rabbit Face': 'Морда кролика',
-                    'Rabbit': 'Кролик',
-                    'Raccoon': 'Енот',
-                    'Rainbow': 'Радуга',
-                    'Rose': 'Роза',
-                    'Rosette': 'Розетка',
-                    'Sauropod': 'Завропод',
-                    'Seal': 'Тюлень',
-                    'Seedling': 'Росток',
-                    'Shamrock': 'Трилистник',
-                    'Shrimp': 'Креветка',
-                    'Snail': 'Улитка',
-                    'Snake': 'Змея',
-                    'Snowflake': 'Снежинка',
-                    'Snowman Without Snow': 'Снеговик без снега',
-                    'Snowman': 'Снеговик',
-                    'Spider Web': 'Паутина',
-                    'Spider': 'Паук',
-                    'Spouting Whale': 'Кит',
-                    'Squid': 'Кальмар',
-
-                    // People
-                    'Baby': 'Малыш',
-                    'Backhand Index Pointing Down': 'Указательный палец вниз',
-                    'Backhand Index Pointing Left': 'Указательный палец влево',
-                    'Backhand Index Pointing Right': 'Указательный палец вправо',
-                    'Backhand Index Pointing Up': 'Указательный палец вверх',
-                    'Biting Lip': 'Закусывание губы',
-                    'Bone': 'Кость',
-                    'Bust In Silhouette': 'Силуэт бюста',
-                    'Busts In Silhouette': 'Силуэты бюстов',
-                    'Call Me Hand': 'Жест "Позвони мне"',
-                    'Clapping Hands': 'Хлопающие руки',
-                    'Crossed Fingers': 'Скрещенные пальцы',
-                    'Ear With Hearing Aid': 'Ухо со слуховым аппаратом',
-                    'Ear': 'Ухо',
-                    'Eyes': 'Глаза',
-                    'Family Man Woman Girl Boy': 'Семья',
-                    'Flexed Biceps': 'Бицепс',
-                    'Folded Hands': 'Сложенные руки',
-                    'Foot': 'Стопа',
-                    'Footprints': 'Следы',
-                    'Hand With Fingers Splayed': 'Растопыренные пальцы',
-                    'Hand With Index Finger And Thumb Crossed': 'Рука со скрещенными пальцами',
-                    'Handshake': 'Рукопожатие',
-                    'Heart Hands': 'Руки сердечком',
-                    'Index Pointing At The Viewer': 'Указательный палец на зрителя',
-                    'Index Pointing Up': 'Указательный палец вверх',
-                    'Left Facing Fist': 'Кулак влево',
-                    'Leftwards Hand': 'Рука влево',
-                    'Leg': 'Нога',
-                    'Love You Gesture': 'Жест "Я тебя люблю"',
-                    'Man Dancing': 'Танцующий мужчина',
-                    'Man Facepalming': 'Фейспалм мужчины',
-                    'Man Health Worker': 'Медработник',
-                    'Man Police Officer': 'Полицейский',
-                    'Man Shrugging': 'Пожимающий плечами мужчина',
-                    'Man Teacher': 'Учитель',
-                    'Man Technologist': 'Технолог',
-                    'Man Vampire': 'Вампир',
-                    'Man Zombie': 'Зомби',
-                    'Mechanical Arm': 'Механическая рука',
-                    'Mechanical Leg': 'Механическая нога',
-                    'Middle Finger': 'Средний палец',
-                    'Mouth': 'Рот',
-                    'Mrs Claus': 'Миссис Клаус',
-                    'Mx Claus': 'Клаус',
-                    'Nail Polish': 'Лак для ногтей',
-                    'Nose': 'Нос',
-                    'Ok Hand': 'Жест "ОК"',
-                    'Old Woman': 'Пожилая женщина',
-                    'Oncoming Fist': 'Кулак',
-                    'Open Hands': 'Открытые руки',
-                    'Palm Down Hand': 'Рука ладонью вниз',
-                    'Palm Up Hand': 'Рука ладонью вверх',
-                    'Palms Up Together': 'Ладони вверх вместе',
-                    'People Hugging': 'Обнимающиеся люди',
-                    'Person Facepalming': 'Фейспалм',
-                    'Person Shrugging': 'Пожимающий плечами человек',
-                    'Pinched Fingers': 'Сжатые пальцы',
-                    'Pinching Hand': 'Щипок',
-                    'Pregnant Woman': 'Беременная женщина',
-                    'Raised Back Of Hand': 'Тыльная сторона руки',
-                    'Raised Fist': 'Поднятый кулак',
-                    'Raised Hand': 'Поднятая рука',
-                    'Raising Hands': 'Поднятые руки',
-                    'Right Facing Fist': 'Кулак вправо',
-                    'Rightwards Hand': 'Рука вправо',
-                    'Santa Claus': 'Дед Мороз',
-                    'Sign Of The Horns': 'Знак рогов',
-                    'Speaking Head': 'Говорящая голова',
-                    'Technologist': 'Технолог',
-                    'Thumbs Down': 'Палец вниз',
-                    'Thumbs Up': 'Палец вверх',
-                    'Tongue': 'Язык',
-                    'Tooth': 'Зуб',
-                    'Vampire': 'Вампир',
-                    'Victory Hand': 'Знак победы',
-                    'Vulcan Salute': 'Приветствие Вулкана',
-                    'Waving Hand': 'Машущая рука',
-                    'Woman Dancing': 'Танцующая женщина',
-                    'Woman Facepalming': 'Фейспалм женщины',
-                    'Woman Health Worker': 'Медработница',
-                    'Woman Police Officer': 'Женщина-полицейский',
-                    'Woman Shrugging': 'Пожимающая плечами женщина',
-                    'Woman Technologist': 'Женщина-технолог',
-                    'Woman Vampire': 'Женщина-вампир',
-                    'Woman Zombie': 'Женщина-зомби',
-                    'Writing Hand': 'Пишущая рука',
-                    'Zombie': 'Зомби',
-
-                    // Flags
-                    'Black Flag': 'Черный флаг',
-                    'Chequered Flag': 'Клетчатый флаг',
-                    'Flag Argentina': 'Флаг Аргентины',
-                    'Flag Armenia': 'Флаг Армении',
-                    'Flag Austria': 'Флаг Австрии',
-                    'Flag Bahamas': 'Флаг Багамских островов',
-                    'Flag Belarus': 'Флаг Беларуси',
-                    'Flag Belgium': 'Флаг Бельгии',
-                    'Flag Benin': 'Флаг Бенина',
-                    'Flag Brazil': 'Флаг Бразилии',
-                    'Flag Bulgaria': 'Флаг Болгарии',
-                    'Flag Burkina Faso': 'Флаг Буркина-Фасо',
-                    'Flag Cameroon': 'Флаг Камеруна',
-                    'Flag Chad': 'Флаг Чада',
-                    'Flag China': 'Флаг Китая',
-                    'Flag Cote Divoire': 'Флаг Кот-д\'Ивуара',
-                    'Flag Croatia': 'Флаг Хорватии',
-                    'Flag Czechia': 'Флаг Чехии',
-                    'Flag Djibouti': 'Флаг Джибути',
-                    'Flag Equatorial Guinea': 'Флаг Экваториальной Гвинеи',
-                    'Flag Estonia': 'Флаг Эстонии',
-                    'Flag France': 'Флаг Франции',
-                    'Flag Gabon': 'Флаг Габона',
-                    'Flag Germany': 'Флаг Германии',
-                    'Flag Ghana': 'Флаг Ганы',
-                    'Flag Guinea Bissau': 'Флаг Гвинеи-Бисау',
-                    'Flag Guinea': 'Флаг Гвинеи',
-                    'Flag Hungary': 'Флаг Венгрии',
-                    'Flag India': 'Флаг Индии',
-                    'Flag Indonesia': 'Флаг Индонезии',
-                    'Flag Ireland': 'Флаг Ирландии',
-                    'Flag Italy': 'Флаг Италии',
-                    'Flag Japan': 'Флаг Японии',
-                    'Flag Jordan': 'Флаг Иордании',
-                    'Flag Lithuania': 'Флаг Литвы',
-                    'Flag Luxembourg': 'Флаг Люксембурга',
-                    'Flag Madagascar': 'Флаг Мадагаскара',
-                    'Flag Mali': 'Флаг Мали',
-                    'Flag Monaco': 'Флаг Монако',
-                    'Flag Morocco': 'Флаг Марокко',
-                    'Flag Mozambique': 'Флаг Мозамбика',
-                    'Flag Myanmar Burma': 'Флаг Мьянмы',
-                    'Flag Netherlands': 'Флаг Нидерландов',
-                    'Flag Nigeria': 'Флаг Нигерии',
-                    'Flag Palestinian Territories': 'Флаг Палестины',
-                    'Flag Peru': 'Флаг Перу',
-                    'Flag Philippines': 'Флаг Филиппин',
-                    'Flag Poland': 'Флаг Польши',
-                    'Flag Romania': 'Флаг Румынии',
-                    'Flag Russia': 'Флаг России',
-                    'Flag Sao Tome Principe': 'Флаг Сан-Томе и Принсипи',
-                    'Flag Saudi Arabia': 'Флаг Саудовской Аравии',
-                    'Flag Senegal': 'Флаг Сенегала',
-                    'Flag Sierra Leone': 'Флаг Сьерра-Леоне',
-                    'Flag Singapore': 'Флаг Сингапура',
-                    'Flag Sint Maarten': 'Флаг Синт-Мартена',
-                    'Flag Somalia': 'Флаг Сомали',
-                    'Flag South Korea': 'Флаг Южной Кореи',
-                    'Flag South Sudan': 'Флаг Южного Судана',
-                    'Flag Spain': 'Флаг Испании',
-                    'Flag Sudan': 'Флаг Судана',
-                    'Flag Ukraine': 'Флаг Украины',
-                    'Flag United Arab Emirates': 'Флаг ОАЭ',
-                    'Flag United Kingdom': 'Флаг Великобритании',
-                    'Flag United States': 'Флаг США',
-                    'Flag Uzbekistan': 'Флаг Узбекистана',
-                    'Flag Vietnam': 'Флаг Вьетнама',
-                    'Flag Western Sahara': 'Флаг Западной Сахары',
-                    'Flag Yemen': 'Флаг Йемена',
-                    'Pirate Flag': 'Пиратский флаг',
-                    'Triangular Flag': 'Треугольный флаг',
-                    'White Flag': 'Белый флаг',
-
-                    // Smileys
-                    'Alien Monster': 'Инопланетный монстр',
-                    'Alien': 'Инопланетянин',
-                    'Angry Face With Horns': 'Злое лицо с рогами',
-                    'Angry Face': 'Злое лицо',
-                    'Anguished Face': 'Страдающее лицо',
-                    'Anxious Face With Sweat': 'Тревожное лицо с потом',
-                    'Astonished Face': 'Изумленное лицо',
-                    'Beaming Face With Smiling Eyes': 'Сияющее лицо с улыбающимися глазами',
-                    'Cat With Tears Of Joy': 'Кот со слезами радости',
-                    'Cat With Wry Smile': 'Кот с кривой улыбкой',
-                    'Clown Face': 'Лицо клоуна',
-                    'Cold Face': 'Замерзшее лицо',
-                    'Confounded Face': 'Озадаченное лицо',
-                    'Confused Face': 'Смущенное лицо',
-                    'Cowboy Hat Face': 'Лицо в ковбойской шляпе',
-                    'Crying Cat': 'Плачущий кот',
-                    'Crying Face': 'Плачущее лицо',
-                    'Disappointed Face': 'Разочарованное лицо',
-                    'Disguised Face': 'Замаскированное лицо',
-                    'Dizzy Face': 'Головокружительное лицо',
-                    'Dotted Line Face': 'Лицо пунктиром',
-                    'Downcast Face With Sweat': 'Подавленное лицо с потом',
-                    'Drooling Face': 'Лицо с слюной',
-                    'Exploding Head': 'Взрывающаяся голова',
-                    'Expressionless Face': 'Безэмоциональное лицо',
-                    'Face Blowing A Kiss': 'Лицо, посылающее поцелуй',
-                    'Face Exhaling': 'Выдыхающее лицо',
-                    'Face Holding Back Tears': 'Лицо, сдерживающее слезы',
-                    'Face In Clouds': 'Лицо в облаках',
-                    'Face Savoring Food': 'Лицо, смакующее еду',
-                    'Face Screaming In Fear': 'Лицо, кричащее от страха',
-                    'Face Vomiting': 'Рвотное лицо',
-                    'Face With Diagonal Mouth': 'Лицо с диагональным ртом',
-                    'Face With Hand Over Mouth': 'Лицо с рукой над ртом',
-                    'Face With Head Bandage': 'Лицо с повязкой',
-                    'Face With Medical Mask': 'Лицо в медицинской маске',
-                    'Face With Monocle': 'Лицо с моноклем',
-                    'Face With Open Eyes And Hand Over Mouth': 'Лицо с открытыми глазами и рукой над ртом',
-                    'Face With Open Mouth': 'Лицо с открытым ртом',
-                    'Face With Peeking Eye': 'Лицо с подглядывающим глазом',
-                    'Face With Raised Eyebrow': 'Лицо с поднятой бровью',
-                    'Face With Rolling Eyes': 'Лицо с закатывающимися глазами',
-                    'Face With Spiral Eyes': 'Лицо со спиральными глазами',
-                    'Face With Steam From Nose': 'Лицо с паром из носа',
-                    'Face With Symbols On Mouth': 'Лицо с символами на рту',
-                    'Face With Tears Of Joy': 'Лицо со слезами радости',
-                    'Face With Thermometer': 'Лицо с термометром',
-                    'Face With Tongue': 'Лицо с языком',
-                    'Face Without Mouth': 'Лицо без рта',
-                    'Fearful Face': 'Испуганное лицо',
-                    'Flushed Face': 'Покрасневшее лицо',
-                    'Frowning Face With Open Mouth': 'Хмурое лицо с открытым ртом',
-                    'Frowning Face': 'Хмурое лицо',
-                    'Ghost': 'Привидение',
-                    'Goblin': 'Гоблин',
-                    'Grimacing Face': 'Гримасничающее лицо',
-                    'Grinning Cat With Smiling Eyes': 'Ухмыляющийся кот с улыбающимися глазами',
-                    'Grinning Cat': 'Ухмыляющийся кот',
-                    'Grinning Face With Big Eyes': 'Ухмыляющееся лицо с большими глазами',
-                    'Grinning Face With Smiling Eyes': 'Ухмыляющееся лицо с улыбающимися глазами',
-                    'Grinning Face With Sweat': 'Ухмыляющееся лицо с потом',
-                    'Grinning Face': 'Ухмыляющееся лицо',
-                    'Grinning Squinting Face': 'Ухмыляющееся прищуренное лицо',
-                    'Hear No Evil Monkey': 'Обезьяна "не слышу зла"',
-                    'Hot Face': 'Горячее лицо',
-                    'Hugging Face': 'Обнимающее лицо',
-                    'Hushed Face': 'Затихшее лицо',
-                    'Kissing Cat': 'Целующийся кот',
-                    'Kissing Face With Closed Eyes': 'Целующееся лицо с закрытыми глазами',
-                    'Kissing Face': 'Целующееся лицо',
-                    'Loudly Crying Face': 'Громко плачущее лицо',
-                    'Lying Face': 'Лживое лицо',
-                    'Melting Face': 'Тающее лицо',
-                    'Money Mouth Face': 'Лицо с деньгами во рту',
-                    'Nauseated Face': 'Тошнотворное лицо',
-                    'Nerd Face': 'Лицо ботаника',
-                    'Neutral Face': 'Нейтральное лицо',
-                    'Ogre': 'Огр',
-                    'Partying Face': 'Празднующее лицо',
-                    'Pensive Face': 'Задумчивое лицо',
-                    'Persevering Face': 'Упорное лицо',
-                    'Pile Of Poo': 'Куча какашек',
-                    'Pleading Face': 'Умоляющее лицо',
-                    'Pouting Cat': 'Дующийся кот',
-                    'Pouting Face': 'Дующееся лицо',
-                    'Relieved Face': 'Облегченное лицо',
-                    'Robot': 'Робот',
-                    'Rolling On The Floor Laughing': 'Катающийся по полу от смеха',
-                    'Sad But Relieved Face': 'Грустное, но облегченное лицо',
-                    'Saluting Face': 'Салютующее лицо',
-                    'See No Evil Monkey': 'Обезьяна "не вижу зла"',
-                    'Shushing Face': 'Шикающее лицо',
-                    'Skull And Crossbones': 'Череп и кости',
-                    'Skull': 'Череп',
-                    'Sleeping Face': 'Спящее лицо',
-                    'Sleepy Face': 'Сонное лицо',
-                    'Slightly Frowning Face': 'Слегка хмурое лицо',
-                    'Slightly Smiling Face': 'Слегка улыбающееся лицо',
-                    'Smiling Cat With Heart Eyes': 'Улыбающийся кот с сердечками в глазах',
-                    'Smiling Face With Halo': 'Улыбающееся лицо с нимбом',
-
-                    // Objects
-                    'Abacus': 'Счёты',
-                    'Ballot Box With Ballot': 'Урна для голосования',
-                    'Bar Chart': 'Гистограмма',
-                    'Bomb': 'Бомба',
-                    'Books': 'Книги',
-                    'Briefcase': 'Портфель',
-                    'Card Index Dividers': 'Разделители картотеки',
-                    'Chart Decreasing': 'График снижения',
-                    'Chart Increasing': 'График роста',
-                    'Clapper Board': 'Хлопушка',
-                    'Coffin': 'Гроб',
-                    'Coin': 'Монета',
-                    'Crown': 'Корона',
-                    'File Folder': 'Папка с файлами',
-                    'Gem Stone': 'Драгоценный камень',
-                    'Graduation Cap': 'Выпускная шапочка',
-                    'Handbag': 'Сумочка',
-                    'High Heeled Shoe': 'Туфля на каблуке',
-                    'Hourglass Done': 'Песочные часы (истекло)',
-                    'Hourglass Not Done': 'Песочные часы (идут)',
-                    'Identification Card': 'Удостоверение личности',
-                    'Inbox Tray': 'Входящие',
-                    'Incoming Envelope': 'Входящий конверт',
-                    'Key': 'Ключ',
-                    'Keyboard': 'Клавиатура',
-                    'Laptop': 'Ноутбук',
-                    'Light Bulb': 'Лампочка',
-                    'Locked With Key': 'Замок с ключом',
-                    'Luggage': 'Багаж',
-                    'Magnifying Glass Tilted Left': 'Лупа влево',
-                    'Magnifying Glass Tilted Right': 'Лупа вправо',
-                    'Megaphone': 'Мегафон',
-                    'Memo': 'Заметка',
-                    'Microphone': 'Микрофон',
-                    'Microscope': 'Микроскоп',
-                    'Military Helmet': 'Военный шлем',
-                    'Mobile Phone With Arrow': 'Телефон со стрелкой',
-                    'Mobile Phone': 'Мобильный телефон',
-                    'Money Bag': 'Мешок с деньгами',
-                    'Money With Wings': 'Деньги с крыльями',
-                    'Musical Note': 'Нота',
-                    'Musical Notes': 'Ноты',
-                    'Newspaper': 'Газета',
-                    'Old Key': 'Старый ключ',
-                    'Open Book': 'Открытая книга',
-                    'Outbox Tray': 'Исходящие',
-                    'Pencil': 'Карандаш',
-                    'Pill': 'Таблетка',
-                    'Printer': 'Принтер',
-                    'Purse': 'Кошелёк',
-                    'Reminder Ribbon': 'Памятная лента',
-                    'Roll Of Paper': 'Рулон бумаги',
-                    'Shopping Bags': 'Сумки для покупок',
-                    'Shopping Cart': 'Корзина для покупок',
-                    'Soap': 'Мыло',
-                    'Sponge': 'Губка',
-                    'Stethoscope': 'Стетоскоп',
-                    'Studio Microphone': 'Студийный микрофон',
-                    'Syringe': 'Шприц',
-                    'Tear Off Calendar': 'Отрывной календарь',
-                    'Telephone Receiver': 'Телефонная трубка',
-                    'Telephone': 'Телефон',
-                    'Telescope': 'Телескоп',
-                    'Television': 'Телевизор',
-                    'Test Tube': 'Пробирка',
-                    'Thermometer': 'Термометр',
-                    'Toolbox': 'Ящик с инструментами',
-                    'Top Hat': 'Цилиндр'
-                }
-            },
-            en: {
-                title: 'Telegram Animated Emojis',
-                search: 'Search emojis...',
-                loaded: 'Loaded',
-                timeLeft: 'Time left',
-                speed: 'Speed',
-                loadingComplete: 'Loading complete',
-                copySuccess: 'HTML tag copied!',
-                copyError: 'Copy error',
-                loadError: 'Loading error',
-                loadCategoryError: 'Category loading error',
-                noResults: 'No results found',
-                perSecond: 'emojis/sec',
-                perMinute: 'emojis/min',
-                seconds: 'sec',
-                minutes: 'min',
-                copy: 'Copy',
-                download: 'Download',
-                categories: {
-                    'Activity': 'Activity',
-                    'Animals and Nature': 'Animals & Nature',
-                    'Flags': 'Flags',
-                    'Food and Drink': 'Food & Drink',
-                    'Objects': 'Objects',
-                    'People': 'People',
-                    'Smileys': 'Smileys',
-                    'Symbols': 'Symbols',
-                    'Travel and Places': 'Travel & Places'
-                },
-                emojis: {
-                    // Activity
-                    '1st Place Medal': '1st Place Medal',
-                    '2nd Place Medal': '2nd Place Medal',
-                    '3rd Place Medal': '3rd Place Medal',
-                    'Admission Tickets': 'Admission Tickets',
-                    'Artist Palette': 'Artist Palette',
-                    'Balloon': 'Balloon',
-                    'Basketball': 'Basketball',
-                    'Christmas Tree': 'Christmas Tree',
-                    'Confetti Ball': 'Confetti Ball',
-                    'Crystal Ball': 'Crystal Ball',
-                    'Firecracker': 'Firecracker',
-                    'Fireworks': 'Fireworks',
-                    'Jack O Lantern': 'Jack O\' Lantern',
-                    'Magic Wand': 'Magic Wand',
-                    'Military Medal': 'Military Medal',
-                    'Mirror Ball': 'Mirror Ball',
-                    'Party Popper': 'Party Popper',
-                    'Performing Arts': 'Performing Arts',
-                    'Soccer Ball': 'Soccer Ball',
-                    'Sparkler': 'Sparkler',
-                    'Sparkles': 'Sparkles',
-                    'Sports Medal': 'Sports Medal',
-                    'Ticket': 'Ticket',
-                    'Trophy': 'Trophy',
-                    'Video Game': 'Video Game',
-                    // Добавьте здесь английские названия для других эмодзи
-                }
-            },
-            de: {
-                title: 'Telegram Animierte Emojis',
-                search: 'Emojis suchen...',
-                loaded: 'Geladen',
-                timeLeft: 'Verbleibende Zeit',
-                speed: 'Geschwindigkeit',
-                loadingComplete: 'Laden abgeschlossen',
-                copySuccess: 'HTML-Tag kopiert!',
-                copyError: 'Kopierfehler',
-                loadError: 'Ladefehler',
-                loadCategoryError: 'Kategorie-Ladefehler',
-                noResults: 'Keine Ergebnisse gefunden',
-                perSecond: 'Emojis/Sek',
-                perMinute: 'Emojis/Min',
-                seconds: 'Sek',
-                minutes: 'Min',
-                copy: 'Kopieren',
-                download: 'Herunterladen',
-                categories: {
-                    'Activity': 'Aktivitäten',
-                    'Animals and Nature': 'Tiere & Natur',
-                    'Flags': 'Flaggen',
-                    'Food and Drink': 'Essen & Trinken',
-                    'Objects': 'Objekte',
-                    'People': 'Menschen',
-                    'Smileys': 'Smileys',
-                    'Symbols': 'Symbole',
-                    'Travel and Places': 'Reisen & Orte'
-                },
-                emojis: {
-                    // Activity
-                    '1st Place Medal': 'Goldmedaille',
-                    '2nd Place Medal': 'Silbermedaille',
-                    '3rd Place Medal': 'Bronzemedaille',
-                    'Admission Tickets': 'Eintrittskarten',
-                    'Artist Palette': 'Künstlerpalette',
-                    'Balloon': 'Luftballon',
-                    'Basketball': 'Basketball',
-                    'Christmas Tree': 'Weihnachtsbaum',
-                    'Confetti Ball': 'Konfettiball',
-                    'Crystal Ball': 'Kristallkugel',
-                    'Firecracker': 'Knallkörper',
-                    'Fireworks': 'Feuerwerk',
-                    'Jack O Lantern': 'Halloween-Kürbis',
-                    'Magic Wand': 'Zauberstab',
-                    'Military Medal': 'Militärmedaille',
-                    'Mirror Ball': 'Discokugel',
-                    'Party Popper': 'Partyknaller',
-                    'Performing Arts': 'Darstellende Künste',
-                    'Soccer Ball': 'Fußball',
-                    'Sparkler': 'Wunderkerze',
-                    'Sparkles': 'Funken',
-                    'Sports Medal': 'Sportmedaille',
-                    'Ticket': 'Ticket',
-                    'Trophy': 'Pokal',
-                    'Video Game': 'Videospiel'
-                }
-            },
-            fr: {
-                title: 'Emojis Animés Telegram',
-                search: 'Rechercher des emojis...',
-                loaded: 'Chargé',
-                timeLeft: 'Temps restant',
-                speed: 'Vitesse',
-                loadingComplete: 'Chargement terminé',
-                copySuccess: 'Balise HTML copiée !',
-                copyError: 'Erreur de copie',
-                loadError: 'Erreur de chargement',
-                loadCategoryError: 'Erreur de chargement de catégorie',
-                noResults: 'Aucun résultat trouvé',
-                perSecond: 'emojis/sec',
-                perMinute: 'emojis/min',
-                seconds: 'sec',
-                minutes: 'min',
-                copy: 'Copier',
-                download: 'Télécharger',
-                categories: {
-                    'Activity': 'Activités',
-                    'Animals and Nature': 'Animaux & Nature',
-                    'Flags': 'Drapeaux',
-                    'Food and Drink': 'Nourriture & Boissons',
-                    'Objects': 'Objets',
-                    'People': 'Personnes',
-                    'Smileys': 'Émoticônes',
-                    'Symbols': 'Symboles',
-                    'Travel and Places': 'Voyages & Lieux'
-                },
-                emojis: {
-                    // Activity
-                    '1st Place Medal': 'Médaille d\'or',
-                    '2nd Place Medal': 'Médaille d\'argent',
-                    '3rd Place Medal': 'Médaille de bronze',
-                    'Admission Tickets': 'Billets d\'entrée',
-                    'Artist Palette': 'Palette d\'artiste',
-                    'Balloon': 'Ballon',
-                    'Basketball': 'Basket-ball',
-                    'Christmas Tree': 'Sapin de Noël',
-                    'Confetti Ball': 'Boule de confettis',
-                    'Crystal Ball': 'Boule de cristal',
-                    'Firecracker': 'Pétard',
-                    'Fireworks': 'Feux d\'artifice',
-                    'Jack O Lantern': 'Citrouille d\'Halloween',
-                    'Magic Wand': 'Baguette magique',
-                    'Military Medal': 'Médaille militaire',
-                    'Mirror Ball': 'Boule à facettes',
-                    'Party Popper': 'Cotillon',
-                    'Performing Arts': 'Arts du spectacle',
-                    'Soccer Ball': 'Ballon de football',
-                    'Sparkler': 'Cierge magique',
-                    'Sparkles': 'Étincelles',
-                    'Sports Medal': 'Médaille sportive',
-                    'Ticket': 'Billet',
-                    'Trophy': 'Trophée',
-                    'Video Game': 'Jeu vidéo'
-                }
-            }
-        };
-
-        // Функция для получения перевода
         function t(key, category = null, emojiName = null) {
             const currentLang = localStorage.getItem('lang') || 'ru';
             if (emojiName) {
@@ -865,14 +51,12 @@
             return translations[currentLang][key] || key;
         }
 
-        // Функция для обновления текстов на странице
         function updatePageTexts() {
             document.title = t('title');
             document.querySelector('h1').textContent = t('title');
             document.querySelector('#search-input').placeholder = t('search');
             document.querySelector('.i18n-loaded').textContent = t('loaded');
             
-            // Обновляем категории
             const categoryButtons = document.querySelectorAll('#category-filters button');
             categoryButtons.forEach(button => {
                 const originalCategory = button.getAttribute('data-category') || button.textContent;
@@ -880,7 +64,6 @@
                 button.textContent = t('categories', originalCategory);
             });
 
-            // Обновляем подсказки для кнопок
             document.querySelectorAll('[title]').forEach(element => {
                 const key = element.getAttribute('data-i18n-title');
                 if (key) {
@@ -888,7 +71,6 @@
                 }
             });
 
-            // Если есть активная категория, обновляем её эмодзи
             if (currentCategory) {
                 const emojis = emojiContainer.querySelectorAll('.emoji-card');
                 emojis.forEach(card => {
@@ -903,22 +85,16 @@
             }
         }
 
-        // Функция для форматирования имени файла для URL
         function formatEmojiFileName(name) {
-            // Оставляем пробелы как есть, удаляем только специальные символы
             return name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
         }
 
-        // Функция для форматирования имени для отображения
         function formatEmojiDisplayName(name) {
-            // Нормализуем имя, убирая лишние пробелы
             const normalizedName = name.replace(/\s+/g, ' ').trim();
-            // Получаем перевод из словаря эмодзи
             const translation = translations[localStorage.getItem('lang') || 'ru'].emojis[normalizedName];
             return translation || normalizedName;
         }
 
-        // Обновленная функция показа уведомления
         function showNotification(message) {
             const notification = document.createElement('div');
             notification.className = 'fixed bottom-5 right-5 left-5 sm:right-10 sm:left-auto bg-green-500 text-white py-2 px-4 rounded-lg z-50 notification';
@@ -992,7 +168,6 @@
             }, 5000);
         }
 
-        // Функция для копирования изображения
         async function copyImage(imgElement) {
             try {
                 const absoluteUrl = `https://ysturasp.github.io/tg_emoji/${imgElement.src.split('http://127.0.0.1:5500/')[1]}`;
@@ -1014,7 +189,6 @@
             }
         }
 
-        // Функция для форматирования времени с переводом
         function formatTime(seconds) {
             if (seconds < 60) {
                 return `${Math.ceil(seconds)} ${t('seconds')}`;
@@ -1022,13 +196,11 @@
             return `${Math.ceil(seconds / 60)} ${t('minutes')} ${Math.ceil(seconds % 60)} ${t('seconds')}`;
         }
 
-        // Инициализация темы
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 document.documentElement.className = savedTheme;
             } else {
-                // Проверяем системные настройки темы
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     document.documentElement.className = 'dark';
                 } else {
@@ -1037,20 +209,16 @@
             }
         }
 
-        // Следим за изменением системной темы
         if (window.matchMedia) {
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                // Меняем тему только если пользователь еще не выбрал свою
                 if (!localStorage.getItem('theme')) {
                     document.documentElement.className = e.matches ? 'dark' : 'light';
                 }
             });
         }
 
-        // Инициализируем тему при загрузке
         initTheme();
 
-        // Обработчик переключения темы
         document.getElementById('theme-toggle').addEventListener('click', () => {
             const html = document.documentElement;
             const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
@@ -1061,7 +229,6 @@
 </head>
 <body class="bg-gray-100 dark:bg-dark-100 min-h-screen p-8 transition-colors duration-200">
     <div class="max-w-7xl mx-auto relative">
-        <!-- Обновляем счетчик загрузки -->
         <div id="loading-counter" class="fixed bottom-4 left-4 right-4 mx-auto max-w-[300px] p-3 bg-white dark:bg-dark-200 rounded-lg shadow-md text-sm text-gray-600 dark:text-gray-300 z-50 transition-all duration-300 border border-gray-200 dark:border-dark-300">
             <div class="flex flex-col gap-2">
                 <div class="flex items-center justify-between">
@@ -1082,16 +249,15 @@
 
         <h1 class="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-white">Telegram Animated Emojis</h1>
 
-        <!-- Поле поиска -->
         <div class="mb-8 max-w-md mx-auto">
             <div class="relative flex items-center gap-2">
                 <div class="flex-1 relative">
-                    <input type="text" id="search-input" 
-                        class="w-full px-4 py-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white border border-gray-300 dark:border-dark-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-                        placeholder="Поиск эмодзи...">
-                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
-                        <i class="fas fa-search"></i>
-                    </span>
+                <input type="text" id="search-input" 
+                    class="w-full px-4 py-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white border border-gray-300 dark:border-dark-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                    placeholder="Поиск эмодзи...">
+                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                    <i class="fas fa-search"></i>
+                </span>
                 </div>
                 <div class="relative">
                     <button id="lang-toggle" class="px-3 py-2 rounded-lg bg-white dark:bg-dark-200 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center min-w-[48px] gap-1">
@@ -1113,30 +279,24 @@
         </div>
         
         <div class="mb-8 flex flex-wrap gap-4 justify-center" id="category-filters">
-            <!-- Фильтры категорий будут добавлены через JavaScript -->
         </div>
         
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="emoji-container">
-            <!-- Эмодзи будут добавлены через JavaScript -->
         </div>
 
-        <!-- Уведомление о копировании -->
         <div id="copy-notification" class="fixed bottom-8 right-8 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-[200%] transition-transform duration-300">
             Скопировано!
         </div>
 
-        <!-- Временный элемент для копирования -->
         <textarea id="copy-textarea" style="position: fixed; top: -9999px; left: -9999px;"></textarea>
     </div>
 
     <script>
-        // Инициализация темы
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 document.documentElement.className = savedTheme;
             } else {
-                // Проверяем системные настройки темы
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     document.documentElement.className = 'dark';
                 } else {
@@ -1145,20 +305,16 @@
             }
         }
 
-        // Следим за изменением системной темы
         if (window.matchMedia) {
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                // Меняем тему только если пользователь еще не выбрал свою
                 if (!localStorage.getItem('theme')) {
                     document.documentElement.className = e.matches ? 'dark' : 'light';
                 }
             });
         }
 
-        // Инициализируем тему при загрузке
         initTheme();
 
-        // Обработчик переключения темы
         document.getElementById('theme-toggle').addEventListener('click', () => {
             const html = document.documentElement;
             const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
@@ -1186,200 +342,18 @@
         let currentCategory = null;
         let allEmojis = [];
 
-        // Добавляем переменные для отслеживания загрузки перед функцией createEmojiCard
         let loadedImages = 0;
         let totalImages = 0;
         const loadedCountElement = document.getElementById('loaded-count');
         const totalCountElement = document.getElementById('total-count');
 
-        // Добавляем переменные для отслеживания времени перед переменными загрузки
         let loadStartTime = 0;
         let loadingSpeed = 0;
         let updateSpeedInterval;
         const timeEstimateElement = document.getElementById('time-estimate');
 
-        // Добавляем переменную для прогресс-бара перед переменными загрузки
         const progressBar = document.getElementById('progress-bar');
 
-        // Обновленный список эмодзи по категориям
-        const emojiMap = {
-            'Activity': [
-                '1st Place Medal', '2nd Place Medal', '3rd Place Medal', 'Admission Tickets',
-                'Artist Palette', 'Balloon', 'Basketball', 'Christmas Tree', 'Confetti Ball',
-                'Crystal Ball', 'Firecracker', 'Fireworks', 'Jack O Lantern', 'Magic Wand',
-                'Military Medal', 'Mirror Ball', 'Party Popper', 'Performing Arts',
-                'Soccer Ball', 'Sparkler', 'Sparkles', 'Sports Medal', 'Ticket',
-                'Trophy', 'Video Game'
-            ],
-            'Food and Drink': [
-                'Baby Bottle', 'Banana', 'Bento Box', 'Beverage Box', 'Birthday Cake',
-                'Bottle With Popping Cork', 'Bubble Tea', 'Canned Food', 'Chocolate Bar',
-                'Clinking Glasses', 'Cocktail Glass', 'Cookie', 'Cooking', 'Cup With Straw',
-                'Cupcake', 'Custard', 'Dango', 'Doughnut', 'Fish Cake With Swirl',
-                'Fork And Knife With Plate', 'French Fries', 'Glass Of Milk', 'Hamburger',
-                'Hot Beverage', 'Hot Dog', 'Lollipop', 'Mate', 'Meat On Bone', 'Oden',
-                'Pancakes', 'Pie', 'Pizza', 'Popcorn', 'Poultry Leg', 'Pouring Liquid',
-                'Pretzel', 'Rice Ball', 'Rice Cracker', 'Sandwich', 'Shortcake',
-                'Soft Ice Cream', 'Strawberry', 'Stuffed Flatbread', 'Sushi', 'Taco',
-                'Tropical Drink', 'Tumbler Glass', 'Wine Glass'
-            ],
-            'Flags': [
-                'Black Flag', 'Chequered Flag', 'Flag Argentina', 'Flag Armenia',
-                'Flag Austria', 'Flag Bahamas', 'Flag Belarus', 'Flag Belgium',
-                'Flag Benin', 'Flag Brazil', 'Flag Bulgaria', 'Flag Burkina Faso',
-                'Flag Cameroon', 'Flag Chad', 'Flag China', 'Flag Cote Divoire',
-                'Flag Croatia', 'Flag Czechia', 'Flag Djibouti', 'Flag Equatorial Guinea',
-                'Flag Estonia', 'Flag France', 'Flag Gabon', 'Flag Germany', 'Flag Ghana',
-                'Flag Guinea Bissau', 'Flag Guinea', 'Flag Hungary', 'Flag India',
-                'Flag Indonesia', 'Flag Ireland', 'Flag Italy', 'Flag Japan', 'Flag Jordan',
-                'Flag Lithuania', 'Flag Luxembourg', 'Flag Madagascar', 'Flag Mali',
-                'Flag Monaco', 'Flag Morocco', 'Flag Mozambique', 'Flag Myanmar Burma',
-                'Flag Netherlands', 'Flag Nigeria', 'Flag Palestinian Territories',
-                'Flag Peru', 'Flag Philippines', 'Flag Poland', 'Flag Romania',
-                'Flag Russia', 'Flag Sao Tome Principe', 'Flag Saudi Arabia',
-                'Flag Senegal', 'Flag Sierra Leone', 'Flag Singapore', 'Flag Sint Maarten',
-                'Flag Somalia', 'Flag South Korea', 'Flag South Sudan', 'Flag Spain',
-                'Flag Sudan', 'Flag Ukraine', 'Flag United Arab Emirates',
-                'Flag United Kingdom', 'Flag United States', 'Flag Uzbekistan',
-                'Flag Vietnam', 'Flag Western Sahara', 'Flag Yemen', 'Pirate Flag',
-                'Triangular Flag', 'White Flag'
-            ],
-            'Objects': [
-                'Abacus', 'Ballot Box With Ballot', 'Bar Chart', 'Bomb', 'Books',
-                'Briefcase', 'Card Index Dividers', 'Chart Decreasing', 'Chart Increasing',
-                'Clapper Board', 'Coffin', 'Coin', 'Crown', 'File Folder', 'Gem Stone',
-                'Graduation Cap', 'Handbag', 'High Heeled Shoe', 'Hourglass Done',
-                'Hourglass Not Done', 'Identification Card', 'Inbox Tray',
-                'Incoming Envelope', 'Key', 'Keyboard', 'Laptop', 'Light Bulb',
-                'Locked With Key', 'Luggage', 'Magnifying Glass Tilted Left',
-                'Magnifying Glass Tilted Right', 'Megaphone', 'Memo', 'Microphone',
-                'Microscope', 'Military Helmet', 'Mobile Phone With Arrow', 'Mobile Phone',
-                'Money Bag', 'Money With Wings', 'Musical Note', 'Musical Notes',
-                'Newspaper', 'Old Key', 'Open Book', 'Outbox Tray', 'Pencil', 'Pill',
-                'Printer', 'Purse', 'Reminder Ribbon', 'Roll Of Paper', 'Shopping Bags',
-                'Shopping Cart', 'Soap', 'Sponge', 'Stethoscope', 'Studio Microphone',
-                'Syringe', 'Tear Off Calendar', 'Telephone Receiver', 'Telephone',
-                'Telescope', 'Television', 'Test Tube', 'Thermometer', 'Toolbox',
-                'Top Hat'
-            ],
-            'Animals and Nature': [
-                'Ant', 'Baby Chick', 'Bat', 'Bear', 'Beetle', 'Bird', 'Bison',
-                'Black Cat', 'Blossom', 'Bouquet', 'Bug', 'Butterfly', 'Cactus',
-                'Cat Face', 'Cat', 'Cherry Blossom', 'Chicken',
-                'Cloud With Lightning And Rain', 'Cloud With Lightning',
-                'Cloud With Rain', 'Cloud With Snow', 'Cloud', 'Cockroach',
-                'Cow', 'Cricket', 'Deciduous Tree', 'Deer', 'Dog Face', 'Dove',
-                'Duck', 'Evergreen Tree', 'Fire', 'First Quarter Moon Face',
-                'First Quarter Moon', 'Fish', 'Flamingo', 'Four Leaf Clover',
-                'Fox', 'Frog', 'Front Facing Baby Chick', 'Full Moon Face',
-                'Full Moon', 'Giraffe', 'Glowing Star', 'Gorilla', 'Hamster',
-                'Hatching Chick', 'Hedgehog', 'Herb', 'Hibiscus', 'High Voltage',
-                'Honeybee', 'Horse Face', 'Horse', 'Kangaroo', 'Koala',
-                'Lady Beetle', 'Last Quarter Moon Face', 'Last Quarter Moon',
-                'Leopard', 'Lion', 'Llama', 'Lobster', 'Microbe', 'Monkey Face',
-                'Mosquito', 'Mouse Face', 'New Moon Face', 'New Moon', 'Octopus',
-                'Owl', 'Ox', 'Palm Tree', 'Panda', 'Parrot', 'Paw Prints',
-                'Penguin', 'Pig Face', 'Pig Nose', 'Polar Bear', 'Rabbit Face',
-                'Rabbit', 'Raccoon', 'Rainbow', 'Rose', 'Rosette', 'Sauropod',
-                'Seal', 'Seedling', 'Shamrock', 'Shrimp', 'Snail', 'Snake',
-                'Snowflake', 'Snowman Without Snow', 'Snowman', 'Spider Web',
-                'Spider', 'Spouting Whale', 'Squid'
-            ],
-            'People': [
-                'Baby', 'Backhand Index Pointing Down', 'Backhand Index Pointing Left',
-                'Backhand Index Pointing Right', 'Backhand Index Pointing Up',
-                'Biting Lip', 'Bone', 'Bust In Silhouette', 'Busts In Silhouette',
-                'Call Me Hand', 'Clapping Hands', 'Crossed Fingers',
-                'Ear With Hearing Aid', 'Ear', 'Eyes', 'Family Man Woman Girl Boy',
-                'Flexed Biceps', 'Folded Hands', 'Foot', 'Footprints',
-                'Hand With Fingers Splayed', 'Hand With Index Finger And Thumb Crossed',
-                'Handshake', 'Heart Hands', 'Index Pointing At The Viewer',
-                'Index Pointing Up', 'Left Facing Fist', 'Leftwards Hand', 'Leg',
-                'Love You Gesture', 'Man Dancing', 'Man Facepalming',
-                'Man Health Worker', 'Man Police Officer', 'Man Shrugging',
-                'Man Teacher', 'Man Technologist', 'Man Vampire', 'Man Zombie',
-                'Mechanical Arm', 'Mechanical Leg', 'Middle Finger', 'Mouth',
-                'Mrs Claus', 'Mx Claus', 'Nail Polish', 'Nose', 'Ok Hand',
-                'Old Woman', 'Oncoming Fist', 'Open Hands', 'Palm Down Hand',
-                'Palm Up Hand', 'Palms Up Together', 'People Hugging',
-                'Person Facepalming', 'Person Shrugging', 'Pinched Fingers',
-                'Pinching Hand', 'Pregnant Woman', 'Raised Back Of Hand',
-                'Raised Fist', 'Raised Hand', 'Raising Hands', 'Right Facing Fist',
-                'Rightwards Hand', 'Santa Claus', 'Sign Of The Horns',
-                'Speaking Head', 'Technologist', 'Thumbs Down', 'Thumbs Up',
-                'Tongue', 'Tooth', 'Vampire', 'Victory Hand', 'Vulcan Salute',
-                'Waving Hand', 'Woman Dancing', 'Woman Facepalming',
-                'Woman Health Worker', 'Woman Police Officer', 'Woman Shrugging',
-                'Woman Technologist', 'Woman Vampire', 'Woman Zombie',
-                'Writing Hand', 'Zombie'
-            ],
-            'Smileys': [
-                'Alien Monster', 'Alien', 'Angry Face With Horns', 'Angry Face',
-                'Anguished Face', 'Anxious Face With Sweat', 'Astonished Face',
-                'Beaming Face With Smiling Eyes', 'Cat With Tears Of Joy',
-                'Cat With Wry Smile', 'Clown Face', 'Cold Face', 'Confounded Face',
-                'Confused Face', 'Cowboy Hat Face', 'Crying Cat', 'Crying Face',
-                'Disappointed Face', 'Disguised Face', 'Dizzy Face',
-                'Dotted Line Face', 'Downcast Face With Sweat', 'Drooling Face',
-                'Exploding Head', 'Expressionless Face', 'Face Blowing A Kiss',
-                'Face Exhaling', 'Face Holding Back Tears', 'Face In Clouds',
-                'Face Savoring Food', 'Face Screaming In Fear', 'Face Vomiting',
-                'Face With Diagonal Mouth', 'Face With Hand Over Mouth',
-                'Face With Head Bandage', 'Face With Medical Mask',
-                'Face With Monocle', 'Face With Open Eyes And Hand Over Mouth',
-                'Face With Open Mouth', 'Face With Peeking Eye',
-                'Face With Raised Eyebrow', 'Face With Rolling Eyes',
-                'Face With Spiral Eyes', 'Face With Steam From Nose',
-                'Face With Symbols On Mouth', 'Face With Tears Of Joy',
-                'Face With Thermometer', 'Face With Tongue', 'Face Without Mouth',
-                'Fearful Face', 'Flushed Face', 'Frowning Face With Open Mouth',
-                'Frowning Face', 'Ghost', 'Goblin', 'Grimacing Face',
-                'Grinning Cat With Smiling Eyes', 'Grinning Cat',
-                'Grinning Face With Big Eyes', 'Grinning Face With Smiling Eyes',
-                'Grinning Face With Sweat', 'Grinning Face',
-                'Grinning Squinting Face', 'Hear No Evil Monkey', 'Hot Face',
-                'Hugging Face', 'Hushed Face', 'Kissing Cat',
-                'Kissing Face With Closed Eyes', 'Kissing Face',
-                'Loudly Crying Face', 'Lying Face', 'Melting Face',
-                'Money Mouth Face', 'Nauseated Face', 'Nerd Face', 'Neutral Face',
-                'Ogre', 'Partying Face', 'Pensive Face', 'Persevering Face',
-                'Pile Of Poo', 'Pleading Face', 'Pouting Cat', 'Pouting Face',
-                'Relieved Face', 'Robot', 'Rolling On The Floor Laughing',
-                'Sad But Relieved Face', 'Saluting Face', 'See No Evil Monkey',
-                'Shushing Face', 'Skull And Crossbones', 'Skull', 'Sleeping Face',
-                'Sleepy Face', 'Slightly Frowning Face', 'Slightly Smiling Face',
-                'Smiling Cat With Heart Eyes', 'Smiling Face With Halo'
-            ],
-            'Symbols': [
-                'Anger Symbol', 'Aquarius', 'Aries', 'Baby Symbol',
-                'Baggage Claim', 'Beating Heart', 'Black Heart', 'Blue Heart',
-                'Broken Heart', 'Brown Heart', 'Cancer', 'Capricorn',
-                'Check Box With Check', 'Check Mark Button', 'Check Mark',
-                'Collision', 'Cool Button', 'Cross Mark', 'Currency Exchange',
-                'Customs', 'Dizzy', 'Double Exclamation Mark', 'Exclamation Mark',
-                'Exclamation Question Mark', 'Free Button', 'Gemini',
-                'Green Heart', 'Growing Heart', 'Heart Decoration',
-                'Heart Exclamation', 'Heart On Fire', 'Heart With Arrow',
-                'Heart With Ribbon', 'Hundred Points', 'Kiss Mark',
-                'Left Luggage', 'Leo', 'Libra', 'Love Letter', 'Mending Heart',
-                'Mens Room', 'New Button', 'No One Under Eighteen', 'Ok Button',
-                'Ophiuchus', 'Orange Heart', 'Passport Control', 'Pisces',
-                'Purple Heart', 'Question Mark', 'Red Heart', 'Revolving Hearts',
-                'Right Anger Bubble', 'Sagittarius', 'Scorpio', 'Sparkling Heart',
-                'Speech Balloon', 'Taurus', 'Thought Balloon', 'Top Arrow',
-                'Two Hearts', 'Up Button', 'Virgo', 'White Exclamation Mark',
-                'White Heart', 'White Question Mark', 'Womens Room',
-                'Yellow Heart', 'Zzz'
-            ],
-            'Travel and Places': [
-                'Airplane', 'Ambulance', 'Automobile', 'Beach With Umbrella',
-                'Camping', 'Classical Building', 'Compass', 'Desert Island',
-                'Hot Springs', 'House', 'Locomotive', 'Moai', 'Motor Boat',
-                'Police Car', 'Rocket', 'Roller Coaster', 'Taxi'
-            ]
-        };
-
-        // Обновляем функцию updateTimeEstimate
         function updateTimeEstimate() {
             if (loadedImages === 0 || loadedImages === totalImages) {
                 timeEstimateElement.textContent = '';
@@ -1406,7 +380,6 @@
             }
         }
 
-        // Обновляем функцию createEmojiCard
         function createEmojiCard(emojiName, category) {
             const card = document.createElement('div');
             card.className = 'bg-white dark:bg-dark-200 rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center relative group emoji-card';
@@ -1424,22 +397,18 @@
             img.loading = 'lazy';
             img.decoding = 'async';
 
-            // Добавляем отслеживание загрузки изображения
             img.onload = () => {
                 loadedImages++;
                 loadedCountElement.textContent = loadedImages;
                 updateTimeEstimate();
 
-                // Если все изображения загружены
                 if (loadedImages === totalImages) {
                     clearInterval(updateSpeedInterval);
                     progressBar.style.width = '100%';
                     progressBar.classList.add('bg-green-500');
                     
-                    // Показываем уведомление о завершении загрузки
                     showNotification('loadingComplete');
 
-                    // Скрываем счетчик загрузки
                     const counter = document.getElementById('loading-counter');
                     counter.style.opacity = '0';
                     counter.style.transform = 'translateY(20px)';
@@ -1457,7 +426,7 @@
             };
             
             imgContainer.appendChild(img);
-
+            
             const name = document.createElement('p');
             name.className = 'mt-2 text-sm text-gray-600 dark:text-gray-300 text-center';
             name.setAttribute('data-original-name', emojiName);
@@ -1496,11 +465,9 @@
             return card;
         }
 
-        // Обновляем функцию filterEmojis
         function filterEmojis(searchTerm) {
             const normalizedSearch = searchTerm.toLowerCase();
             const filteredEmojis = allEmojis.filter(emoji => {
-                // Проверяем название эмодзи на всех доступных языках
                 return Object.keys(translations).some(lang => {
                     const translation = translations[lang].emojis[emoji.name];
                     if (!translation) return false;
@@ -1520,7 +487,6 @@
             });
         }
 
-        // Обновленная функция загрузки всех категорий
         async function loadAllCategories() {
             const loadingMessage = document.createElement('p');
             loadingMessage.className = 'text-gray-500 dark:text-gray-400 text-center col-span-full';
@@ -1545,14 +511,11 @@
 
         let isAllCategoriesLoaded = false;
 
-        // Обновленный обработчик поиска
         searchInput.addEventListener('input', async (e) => {
             const searchTerm = e.target.value.trim();
             
             if (searchTerm === '') {
-                // Сбрасываем результаты поиска и возвращаем текущую категорию
                 if (currentCategory) {
-                    // Обновляем стили кнопок категорий
                     document.querySelectorAll('#category-filters button').forEach(btn => {
                         if (btn.textContent === currentCategory) {
                             btn.classList.remove('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
@@ -1563,20 +526,17 @@
                         }
                     });
                     
-                    // Очищаем контейнер и показываем эмодзи текущей категории
                     emojiContainer.innerHTML = '';
                     const categoryEmojis = allEmojis.filter(emoji => emoji.category === currentCategory);
                     categoryEmojis.forEach(emoji => {
                         emojiContainer.appendChild(createEmojiCard(emoji.name, emoji.category));
                     });
                 } else {
-                    // Если категория не выбрана, загружаем первую категорию
                     loadEmojisForCategory(categories[0]);
                 }
                 return;
             }
 
-            // Если это первый поиск, загружаем все категории
             if (!isAllCategoriesLoaded) {
                 isAllCategoriesLoaded = await loadAllCategories();
                 if (!isAllCategoriesLoaded) {
@@ -1585,7 +545,6 @@
                 }
             }
 
-            // Сбрасываем выделение категории при поиске
             document.querySelectorAll('#category-filters button').forEach(btn => {
                 btn.classList.remove('bg-blue-500', 'text-white');
                 btn.classList.add('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
@@ -1594,7 +553,6 @@
             filterEmojis(searchTerm);
         });
 
-        // Создаем фильтры категорий
         categories.forEach(category => {
             const button = document.createElement('button');
             button.className = 'px-4 py-2 rounded-full bg-white dark:bg-dark-200 shadow-md hover:shadow-lg transition-all duration-300 text-gray-700 dark:text-white hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600';
@@ -1606,32 +564,26 @@
             categoryFilters.appendChild(button);
         });
 
-        // Обновляем функцию loadEmojisForCategory
         async function loadEmojisForCategory(category) {
             if (currentCategory === category && searchInput.value.trim() === '') return;
             currentCategory = category;
             
-            // Показываем счетчик и сбрасываем его стили
             const counter = document.getElementById('loading-counter');
             counter.style.display = 'block';
             counter.style.opacity = '1';
             counter.style.transform = 'translateY(0)';
             
-            // Сбрасываем счетчики и время
             loadedImages = 0;
             totalImages = emojiMap[category]?.length || 0;
             loadedCountElement.textContent = '0';
             totalCountElement.textContent = totalImages.toString();
             loadStartTime = Date.now();
             
-            // Сбрасываем прогресс-бар
             progressBar.style.width = '0%';
             progressBar.classList.remove('bg-green-500');
             
-            // Обновляем время загрузки
             updateTimeEstimate();
             
-            // Запускаем интервал обновления времени
             clearInterval(updateSpeedInterval);
             updateSpeedInterval = setInterval(updateTimeEstimate, 1000);
 
@@ -1639,14 +591,12 @@
                 emojiContainer.innerHTML = '';
                 const emojis = emojiMap[category] || [];
 
-                // Добавляем эмодзи в общий список
                 emojis.forEach(name => {
                     if (!allEmojis.some(e => e.name === name && e.category === category)) {
                         allEmojis.push({ name, category });
                     }
                 });
 
-                // Обновляем стили кнопок категорий
                 document.querySelectorAll('#category-filters button').forEach(btn => {
                     if (btn.textContent === t('categories', category)) {
                         btn.classList.remove('bg-white', 'dark:bg-dark-200', 'text-gray-700', 'dark:text-white');
@@ -1667,25 +617,20 @@
             }
         }
 
-        // Загружаем первую категорию по умолчанию
         loadEmojisForCategory(categories[0]);
 
-        // Обработчики для выпадающего меню языков
         const langToggle = document.getElementById('lang-toggle');
         const langMenu = document.getElementById('lang-menu');
         const langToggleIcon = langToggle.querySelector('i');
         
-        // Показать/скрыть меню при клике на кнопку
         langToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             const isVisible = !langMenu.classList.contains('invisible');
             
             if (isVisible) {
-                // Скрываем меню
                 langMenu.classList.add('opacity-0', 'invisible', 'scale-95', 'translate-y-2');
                 langToggleIcon.style.transform = 'rotate(0deg)';
             } else {
-                // Показываем меню
                 langMenu.classList.remove('invisible');
                 setTimeout(() => {
                     langMenu.classList.remove('opacity-0', 'scale-95', 'translate-y-2');
@@ -1694,18 +639,15 @@
             }
         });
         
-        // Скрыть меню при клике вне его
         document.addEventListener('click', () => {
             langMenu.classList.add('opacity-0', 'invisible', 'scale-95', 'translate-y-2');
             langToggleIcon.style.transform = 'rotate(0deg)';
         });
         
-        // Предотвратить скрытие меню при клике на само меню
         langMenu.addEventListener('click', (e) => {
             e.stopPropagation();
         });
         
-        // Обработка выбора языка
         langMenu.querySelectorAll('button').forEach(btn => {
             btn.addEventListener('click', () => {
                 const newLang = btn.getAttribute('data-lang');
@@ -1717,7 +659,6 @@
             });
         });
 
-        // Инициализация языка
         const currentLang = localStorage.getItem('lang') || 'ru';
         langToggle.querySelector('span').textContent = currentLang.toUpperCase();
         updatePageTexts();
