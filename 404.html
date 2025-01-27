@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Страница не найдена</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="emojiMap.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            100: '#1a1a1a',
+                            200: '#2d2d2d',
+                            300: '#404040',
+                            400: '#525252',
+                        }
+                    }
+                }
+            }
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.className = savedTheme;
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.className = 'dark';
+                } else {
+                    document.documentElement.className = 'light';
+                }
+            }
+        }
+
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    document.documentElement.className = e.matches ? 'dark' : 'light';
+                }
+            });
+        }
+
+        initTheme();
+
+        function updateFooterStats() {
+            const totalEmojiCount = document.getElementById('total-emoji-count');
+            const totalCategoriesCount = document.getElementById('total-categories-count');
+            
+            const totalEmojis = Object.values(emojiMap).reduce((acc, curr) => acc + curr.length, 0);
+            const totalCategories = Object.keys(emojiMap).length;
+            
+            totalEmojiCount.textContent = totalEmojis;
+            totalCategoriesCount.textContent = totalCategories;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateFooterStats);
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-dark-100 min-h-screen flex flex-col transition-colors duration-200">
+    <div class="flex-grow flex items-center justify-center p-8">
+        <div class="max-w-2xl mx-auto text-center">
+            <div class="mb-8 flex justify-center">
+                <img src="Smileys/Crying Cat.webp" alt="Confused Face" class="w-32 h-32">
+            </div>
+            <h1 class="text-6xl font-bold text-gray-800 dark:text-white mb-4">404</h1>
+            <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6">Страница не найдена</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">
+                Кажется, страница, которую вы ищете, не существует или была перемещена
+            </p>
+            <a href="/" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200">
+                <i class="fas fa-home"></i>
+                Вернуться на главную
+            </a>
+        </div>
+    </div>
+
+    <footer class="py-8 bg-white dark:bg-dark-200 shadow-lg border-t border-gray-200 dark:border-dark-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">О проекте</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Коллекция анимированных эмодзи Telegram в высоком качестве. Используйте их для ваших проектов и общения
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Полезные ссылки</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://t.me/ysturasp" class="text-blue-500 hover:text-blue-600 transition-colors" target="_blank" rel="noopener">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/ysturasp" class="text-blue-500 hover:text-blue-600 transition-colors" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Статистика</h3>
+                    <div class="space-y-2 text-gray-600 dark:text-gray-300">
+                        <p><i class="fas fa-images"></i> Всего эмодзи: <span id="total-emoji-count">0</span></p>
+                        <p><i class="fas fa-folder"></i> Категорий: <span id="total-categories-count">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-dark-300 text-center text-gray-500 dark:text-gray-400">
+                <p>© <script>document.write(new Date().getFullYear())</script> Telegram Animated Emojis</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
