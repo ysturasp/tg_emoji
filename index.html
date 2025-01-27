@@ -178,8 +178,11 @@
 
         async function copyImage(imgElement) {
             try {
-                const absoluteUrl = `https://ysturasp.github.io/tg_emoji/${imgElement.src.split('http://127.0.0.1:5500/')[1]}`;
-                const imgTag = `<img src="${absoluteUrl}" alt="${imgElement.alt}" />`;
+                const category = imgElement.closest('.emoji-card').getAttribute('data-category');
+                const originalName = imgElement.closest('.emoji-card').querySelector('p').getAttribute('data-original-name');
+                const formattedName = formatEmojiFileName(originalName);
+                const absoluteUrl = `https://ysturasp.github.io/tg_emoji/${category}/${formattedName}.webp`;
+                const imgTag = `<img src="${absoluteUrl}" alt="${originalName}" />`;
                 
                 copyTextarea.value = imgTag;
                 copyTextarea.select();
@@ -435,6 +438,7 @@
         function createEmojiCard(emojiName, category) {
             const card = document.createElement('div');
             card.className = 'bg-white dark:bg-dark-200 rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center relative group emoji-card';
+            card.setAttribute('data-category', category);
             
             const imgContainer = document.createElement('div');
             imgContainer.className = 'w-16 h-16 relative emoji-container';
